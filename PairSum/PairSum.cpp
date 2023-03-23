@@ -2,25 +2,22 @@
 #include <vector>
 #include <unordered_set>
 
-bool hasPairWithSum( const std::vector<int>&, int);
+bool hasPairWithSum1( const std::vector<int>&, int);
+bool hasPairWithSum2(const std::vector<int>&, int);
+bool hasPairWithSum3(const std::vector<int>&, int);
 
 int main() {
 
-	std::vector<int> nums = { 1,3,5,7,8,8,9,12,13 };
+	std::vector<int> nums = { 1,3,5,7,8,9,12};
 	int sum = 12;
 	
-	std::cout << hasPairWithSum(nums, sum);
-
-
-	/*if (hasPairWithSum(nums, 12) == true) {
-		std::cout << "The vector contains the pair that results in sum! \n";
-
-	}
-	else
-		std::cout << "no pair found.";*/
+	hasPairWithSum1(nums, sum); //
+	hasPairWithSum2(nums, sum);	//
+	hasPairWithSum3(nums, sum);	//
+	
 }
 
-bool hasPairWithSum(const std::vector<int>& nums, int sum ) {
+bool hasPairWithSum1(const std::vector<int>& nums, int sum ) {
 	for (int i=0; i < nums.size(); i++)
 		for (int j = 0; j < nums.size(); j++) {
 			
@@ -32,4 +29,35 @@ bool hasPairWithSum(const std::vector<int>& nums, int sum ) {
 			else
 				return false;
 		}
+}
+
+
+bool hasPairWithSum2(const std::vector<int>& nums, int sum) {
+	int start = 0;
+	int end = nums.size() - 1;
+
+	while (start < end) {
+		if (nums[start] + nums[end] == sum) {
+			std::cout << "\n" << start << "-" << end << "\n";
+			return true;
+		}
+		else if (nums[start] + nums[end] > sum) {
+			end--;
+		}
+		else {
+			start++;
+		}
+	}
+}
+
+bool hasPairWithSum3(const std::vector<int>& nums, int sum) {
+	std::unordered_set<int> compliments;					//									   |
+															//									   v
+	for (int x : nums) {									//								  { 1, 3, 5, 7, 8, 9, 12}
+		if (compliments.find(x) != compliments.end()) {		// compliments of given set are: { 11, 9, 7, 5, 4, 3, 0 }
+			std::cout << "\n" << "The "
+			return true;
+		}
+		compliments.insert(sum - x);
+	}
 }
